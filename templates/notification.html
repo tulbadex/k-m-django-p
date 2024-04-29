@@ -1,0 +1,14 @@
+{% for request in pending_requests %}
+    <div>
+        <p>Payment Request from: {{ request.sender.username }}</p>
+        <p>Amount: {{ request.amount }}</p>
+        <form action="{% url 'handle_payment_request' request.id 'accept' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Accept</button>
+        </form>
+        <form action="{% url 'handle_payment_request' request.id 'reject' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Reject</button>
+        </form>
+    </div>
+{% endfor %}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .account-info {
+            margin-top: 20px;
+        }
+        .info-item {
+            margin-bottom: 10px;
+        }
+        .info-label {
+            font-weight: bold;
+        }
+        .info-value {
+            margin-left: 10px;
+        }
+        .decorative-feature {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .decorative-feature img {
+            width: 100%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Account</h1>
+        <div class="account-info">
+            <div class="info-item">
+                <span class="info-label">Name:</span>
+                <span class="info-value">{{ request.user.username }}</span>
+            </div>
+            {% if request.user.userprofile %}
+            <div class="info-item">
+                <span class="info-label">Balance:</span>
+                <span class="info-value">${{ request.user.userprofile.balance }}</span>
+            </div>
+            {% else %}
+            <div class="info-item">
+                <span class="info-label">Balance:</span>
+                <span class="info-value">Not available</span>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="decorative-feature">
+        <img src="https://example.com/bank-logo.png" alt="Bank Logo">
+    </div>
+</body>
+</html>

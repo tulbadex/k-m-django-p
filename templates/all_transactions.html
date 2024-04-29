@@ -1,0 +1,17 @@
+<!-- all_transactions.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Transactions</title>
+</head>
+<body>
+    <h1>All Transactions</h1>
+    <ul>
+        {% for transaction in transactions %}
+        <li>{{ transaction.sender.username }} sent {{ transaction.amount }} to {{ transaction.recipient.username }}</li>
+        <!-- Display other transaction information as needed -->
+        {% endfor %}
+    </ul>
+</body>
+</html>
