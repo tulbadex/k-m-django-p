@@ -154,7 +154,7 @@ def convert_currency(request, currency1, currency2, amount):
     response_data = {
         'currency1': currency1,
         'currency2': currency2,
-        'amount1': amount,
-        'amount2': converted_amount
+        'amount': amount,
+        'converted_to': converted_amount
     }
     return JsonResponse(response_data)
