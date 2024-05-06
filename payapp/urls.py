@@ -15,6 +15,7 @@ urlpatterns = [
   
     path('handle_payment_request/<int:request_id>/<str:action>/', views.handle_payment_request, name='handle_payment_request'),
 
+    path('conversion/<str:currency1>/<str:currency2>/<amount>/', views.convert_currency, name='convert_currency'),
 
     # Add other URLs as needed
     # other URL patterns

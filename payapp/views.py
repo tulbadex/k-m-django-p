@@ -8,6 +8,9 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, redirect
 from register.models import UserProfile
 
+from django.http import JsonResponse
+from django.http import HttpResponseBadRequest
+
 def index(request):
     features = Feature.objects.all()
     return render(request, 'index.html', {'features': features})
@@ -123,3 +126,35 @@ def send_notification(request):
     return render(request, 'notification.html', context)
 
 
+ALLOWED_CURRENCIES = ['USD', 'EUR', 'GBP']  # Example list of allowed currencies
+CONVERSION_RATES = {
+    ('USD', 'EUR'): 0.93,  # Conversion rate from USD to EUR
+    ('EUR', 'USD'): 1.08,  # Conversion rate from EUR to USD
+    ('USD', 'GBP'): 0.80,  # Conversion rate from USD to GBP
+    ('GBP', 'USD'): 1.26,  # Conversion rate from GBP to USD
+    # Add more conversion rates as needed
+}
+
+def convert_currency(request, currency1, currency2, amount):
+
+    try:
+        amount = float(amount)
+    except ValueError:
+        return HttpResponseBadRequest('Amount must be a valid floating point number.')
+    
+    if currency1 not in ALLOWED_CURRENCIES or currency2 not in ALLOWED_CURRENCIES:
+        return HttpResponseBadRequest('One or both of the provided currencies are not supported.')
+
+    if (currency1, currency2) not in CONVERSION_RATES:
+        return HttpResponseBadRequest('Conversion rate not available for the provided currency pair.')
+
+    conversion_rate = CONVERSION_RATES[(currency1, currency2)]
+    converted_amount = amount * conversion_rate
+
+    response_data = {
+        'currency1': currency1,
+        'currency2': currency2,
+        'amount1': amount,
+        'amount2': converted_amount
+    }
+    return JsonResponse(response_data)
