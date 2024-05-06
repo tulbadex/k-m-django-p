@@ -87,7 +87,7 @@ LOGIN_URL = '/login/'
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'http')
 
-# SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 
 
 # Password validation
