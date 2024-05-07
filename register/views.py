@@ -13,12 +13,13 @@ from django.shortcuts import render, redirect
 from .models import UserProfile
 from payapp.models import Feature
 from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
     features = Feature.objects.all()
     return render(request, 'index.html', {'features': features})
 
-@csrf_protect
+@csrf_exempt
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -40,7 +41,7 @@ def user_logout(request):
     auth.logout(request)
     return redirect('/')
 
-@csrf_protect
+@csrf_exempt
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
