@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, redirect
 from register.models import UserProfile
+from django.views.decorators.csrf import csrf_exempt
 
 from django.http import JsonResponse
 from django.http import HttpResponseBadRequest
@@ -22,6 +23,7 @@ def counter(request):
     return render(request, 'counter.html', {'amount': amount_of_word})
 
 @login_required
+@csrf_exempt
 def make_payment(request):
     if request.method == 'POST':
         form = PaymentForm(request.POST)
@@ -51,6 +53,7 @@ def view_transactions(request):
     return render(request, 'view_transactions.html', {'transactions': transactions})
 
 @login_required
+@csrf_exempt
 def request_payment(request):
     if request.method == 'POST':
         form = PaymentRequestForm(request.POST)
