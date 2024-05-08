@@ -96,7 +96,7 @@ DATABASES = {
     }
 }
 
-LOGIN_URL = '/login/'
+LOGIN_URL = '/login'
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'http')
 
