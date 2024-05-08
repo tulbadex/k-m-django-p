@@ -29,7 +29,8 @@ def user_login(request):
 
         if user is not None:
             login(request, user)
-            return redirect('/')
+            # return redirect('payapp:index')
+            return redirect('index')
         else:
             messages.error(request, 'Invalid credentials')
             return redirect('login')
