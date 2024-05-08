@@ -1,25 +1,20 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import UserProfile
 from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
-from django.contrib.admin.views.decorators import staff_member_required
 from decimal import Decimal  # Import Decimal for handling currency
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from .models import UserProfile
 from payapp.models import Feature
-from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
     features = Feature.objects.all()
     return render(request, 'index.html', {'features': features})
 
-# @csrf_protect
 def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -36,12 +31,10 @@ def user_login(request):
     else:
         return render(request, 'login.html')
 
-
 def user_logout(request):
     auth.logout(request)
     return redirect('/')
 
-# @csrf_protect
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
