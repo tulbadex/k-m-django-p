@@ -87,10 +87,10 @@
             <li><a href="#contact">Contact Us</a></li>
   
             {% if user.is_authenticated %}
-              <li><a href="dashboard" class="">Dashboard</a></li>
-              <li><a href="logout" class="">Logout</a></li>
+              <li><a href="{% url 'payapp:dashboard' %}" class="">Dashboard</a></li>
+              <li><a href="{% url 'accounts:logout' %}" class="">Logout</a></li>
             {% else %}
-              <li><a href="login" class="">Login or signup</a></li>
+              <li><a href="{% url 'accounts:login' %}" class="">Login or signup</a></li>
             {% endif %}
           </ul>
         </nav>
