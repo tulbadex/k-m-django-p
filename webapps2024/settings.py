@@ -28,9 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-CSRF_TRUSTED_ORIGINS = ['http://54.172.53.217', 'https://54.172.53.217']
+CSRF_TRUSTED_ORIGINS = ['http://http://52.87.98.80/', 'https://http://52.87.98.80/']
 
-CSRF_COOKIE_DOMAIN = '54.172.53.217'
+CSRF_COOKIE_DOMAIN = 'http://52.87.98.80/'
 
 
 # Application definition
