@@ -29,8 +29,7 @@ def user_login(request):
 
         if user is not None:
             login(request, user)
-            # return redirect('payapp:index')
-            return redirect('index')
+            return redirect('payapp:index')
         else:
             messages.error(request, 'Invalid credentials')
             return redirect('login')
@@ -68,8 +67,7 @@ def register(request):
             
             # Log in the user
             login(request, user)
-            return redirect('index')
-            # return redirect('payapp:index')
+            return redirect('payapp:index')
     else:
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
