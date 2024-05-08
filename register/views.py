@@ -32,7 +32,7 @@ def user_login(request):
             return redirect('payapp:index')
         else:
             messages.error(request, 'Invalid credentials')
-            return redirect('login')
+            return redirect('accounts:login')
     else:
         return render(request, 'login.html')
 
