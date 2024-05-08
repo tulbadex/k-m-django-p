@@ -1,17 +1,20 @@
-<!-- all_transactions.html -->
+{% extends 'base.html' %}
+{% load static %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Web application & Services - All Transactions</title>
-</head>
-<body>
+{% block title%}WEBapp - All Transactions{% endblock %}
+
+{% block content %}
+
     <h1>All Transactions</h1>
-    <ul>
-        {% for transaction in transactions %}
-        <li>{{ transaction.sender.username }} sent {{ transaction.amount }} to {{ transaction.recipient.username }}</li>
-        <!-- Display other transaction information as needed -->
-        {% endfor %}
-    </ul>
-</body>
-</html>
+
+    <div>
+        <ul>
+            {% for transaction in transactions %}
+            <li>{{ transaction.sender.username }} sent {{ transaction.amount }} to {{ transaction.recipient.username }}</li>
+            <!-- Display other transaction information as needed -->
+            {% endfor %}
+        </ul>
+    </div>
+
+
+{% endblock %}

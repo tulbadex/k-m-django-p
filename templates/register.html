@@ -1,16 +1,24 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web application & Services - User Registration</title>
+    <!-- Bootstrap CSS File -->
+    <link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 </head>
 <body>
     <h2>User Registration</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
+    
+    {% load crispy_forms_tags %}
+
+    <div class="container mb-3">
+        <form method="post">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <button type="submit">Register</button>
+        </form>
+    </div>
 </body>
 </html>

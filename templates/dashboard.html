@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title%}WEBapp Dashboard{% endblock %}
+
+{% block content %}
+    <style>
+        body {
+            background-color:  #eee;
+        }
+        .title {
+        
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
+        
+        .card-block {
+            font-size: 1em;
+            position: relative;
+            margin: 0;
+            padding: 1em;
+            border: none;
+            border-top: 1px solid rgba(34, 36, 38, .1);
+            box-shadow: none;
+            
+        }
+        .card {
+            font-size: 1em;
+            overflow: hidden;
+            padding: 5;
+            border: none;
+            border-radius: .28571429rem;
+            box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+            margin-top:20px;
+        }
+    </style>
+
+    <div class="container py-3">
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div class="alert alert-danger">
+                    <a class="close" href="#" data-dismiss="alert">×</a>
+                    {{ message }}
+                </div>
+            {% endif %}
+
+            {% if message.tags == 'success' %}
+                <div class="alert alert-success">
+                    <a class="close" href="#" data-dismiss="alert">×</a>
+                    {{ message }}
+                </div>
+            {% endif %}
+
+        {% endfor %}
+        <div class="title h1 text-center">Your Account Info</div>
+            <!-- Card Start -->
+            <div class="card">
+                <div class="row ">
+        
+                    <div class="col-md-12 px-3">
+                        <div class="card-block px-6 card-text font-md">
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <p class="mb-0 h3">Username</p>
+                                </div>
+                                <div class="col-sm-8">
+                                    <p class="text-muted mb-0 h3">{{ user.user.username }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <p class="mb-0 h3">First Name</p>
+                                </div>
+                                <div class="col-sm-8">
+                                    <p class="text-muted mb-0 h3">{{ user.user.first_name }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <p class="mb-0 h3">Last Name</p>
+                                </div>
+                                <div class="col-sm-8">
+                                    <p class="text-muted mb-0 h3">{{ user.user.last_name }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <p class="mb-0 h3">Email</p>
+                                </div>
+                                <div class="col-sm-8">
+                                    <p class="text-muted mb-0 h3">{{ user.user.email }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <p class="mb-0 h3">Balance</p>
+                                </div>
+                                <div class="col-sm-8">
+                                    <p class="text-muted mb-0 h3">{{ user.currency }} {{ user.balance }}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+        <!-- End of card -->
+      
+    </div>
+
+{% endblock %}

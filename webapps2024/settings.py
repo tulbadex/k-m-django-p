@@ -23,8 +23,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-^cuq4448!kqkx)st_g_$^y3x6svdj++az2l1z2gxgqvyaomet4'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# SECURITY WARNING: don't run with debug turned on in production! False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -42,9 +42,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'payapp',
     'register',
+
+    'crispy_forms',
+    "crispy_bootstrap4",
+    "sslserver",
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -83,7 +92,7 @@ WSGI_APPLICATION = 'webapps2024.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'webapps.sqlite3',
     }
 }
 

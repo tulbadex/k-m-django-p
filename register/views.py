@@ -68,6 +68,7 @@ def register(request):
             # Log in the user
             login(request, user)
             return redirect('index')
+            # return redirect('payapp:index')
     else:
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})

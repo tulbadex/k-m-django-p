@@ -1,17 +1,20 @@
-<!-- send_payment_request.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web application & Services - Send Payment Request</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title%}WEBapp - Send Payment Request{% endblock %}
+
+{% block content %}
+
     <h1>Send Payment Request</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Send Request</button>
-    </form>
-</body>
-</html>
+
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+
+{% endblock %}
+

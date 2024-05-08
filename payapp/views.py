@@ -8,6 +8,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render, redirect
 from register.models import UserProfile
 from django.views.decorators.csrf import csrf_exempt
+from django.db import transaction
 
 from django.http import JsonResponse
 from django.http import HttpResponseBadRequest
@@ -15,6 +16,11 @@ from django.http import HttpResponseBadRequest
 def index(request):
     features = Feature.objects.all()
     return render(request, 'index.html', {'features': features})
+
+@login_required
+def dashboard(request):
+    user = UserProfile.objects.get(user=request.user)
+    return render(request, 'dashboard.html', { 'user': user })
 
 @login_required
 def counter(request):
@@ -42,7 +48,7 @@ def make_payment(request):
             recipient_profile.save()
             Transaction.objects.create(sender=request.user, recipient=recipient_profile.user, amount=amount)
             messages.success(request, 'Payment successfully sent.')
-            return redirect('view_transactions')
+            return redirect('payapp:view_transactions')
     else:
         form = PaymentForm()
     return render(request, 'make_payment.html', {'form': form})
@@ -65,7 +71,7 @@ def request_payment(request):
                 recipient=User.objects.get(username=recipient_username),
                 amount=amount_requested
             )
-            return redirect('success')
+            return redirect('payapp:success')
     else:
         form = PaymentRequestForm()
     return render(request, 'request_payments.html', {'form': form})
@@ -78,16 +84,35 @@ def notification(request):
 @login_required
 def handle_payment_request(request, request_id, action):
     payment_request = PaymentRequest.objects.get(id=request_id)
+
+    if payment_request.recipient != request.user:
+        messages.error(request, 'You are not authorized to handle this payment request.')
+        return redirect('payapp:dashboard')
+    
     if action == 'accept':
-        # Update status to accepted
-        payment_request.status = 'accepted'
-        payment_request.save()
-        return redirect('make_payment')  # Redirect to payment page
+        with transaction.atomic():
+            payment_request.status = 'accepted'
+            payment_request.save()
+            
+            sender_profile = UserProfile.objects.get(user=payment_request.sender)
+            recipient_profile = UserProfile.objects.get(user=payment_request.recipient)
+            if recipient_profile.balance < payment_request.amount:
+                messages.error(request, 'Insufficient balance to accept payment request.')
+                return redirect('payapp:dashboard')
+            
+            recipient_profile.balance -= payment_request.amount
+            sender_profile.balance += payment_request.amount
+            
+            recipient_profile.save()
+            sender_profile.save()
+            
+            messages.success(request, 'Payment request accepted.')
+            return redirect('payapp:dashboard')
     elif action == 'reject':
-        # Update status to rejected
         payment_request.status = 'rejected'
         payment_request.save()
-        return redirect('index')  # Redirect to user's index page
+        messages.success(request, 'Payment request rejected.')
+        return redirect('payapp:dashboard')
 
 @login_required
 def view_accounts(request):
