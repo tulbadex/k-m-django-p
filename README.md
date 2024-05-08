@@ -19,5 +19,5 @@ python manage.py runsslserver  --certificate cert.pem --key key.pem
 ```
 6. Run without https
 ```
-python manage.py runsslserver
+python manage.py runserver
 ```
