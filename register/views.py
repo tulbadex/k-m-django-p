@@ -3,7 +3,6 @@ from django.contrib import messages
 from .models import UserProfile
 from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from decimal import Decimal  # Import Decimal for handling currency
 from django.contrib.auth import login

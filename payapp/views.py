@@ -105,6 +105,8 @@ def handle_payment_request(request, request_id, action):
             
             recipient_profile.save()
             sender_profile.save()
+
+            Transaction.objects.create(sender=sender_profile.user, recipient=recipient_profile.user, amount=payment_request.amount)
             
             messages.success(request, 'Payment request accepted.')
             return redirect('payapp:dashboard')
