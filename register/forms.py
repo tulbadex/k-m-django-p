@@ -13,7 +13,6 @@ class CustomUserCreationForm(UserCreationForm):
     username = forms.CharField(max_length=150, required=True, help_text='Required. Unique.')
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
-    email = forms.CharField(unique=True, max_length=150, required=True, validators=[EmailValidator], help_text='Must be a valid email address.')
     password1 = forms.CharField(
         label="Password",
         strip=False,
