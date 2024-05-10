@@ -13,6 +13,23 @@
     
     {% load crispy_forms_tags %}
 
+    {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div class="alert alert-danger">
+                    <a class="close" href="#" data-dismiss="alert">×</a>
+                    {{ message }}
+                </div>
+            {% endif %}
+
+            {% if message.tags == 'success' %}
+                <div class="alert alert-success">
+                    <a class="close" href="#" data-dismiss="alert">×</a>
+                    {{ message }}
+                </div>
+            {% endif %}
+
+        {% endfor %}
+
     <div class="container mb-3">
         <form method="post">
             {% csrf_token %}
@@ -20,5 +37,9 @@
             <button type="submit">Register</button>
         </form>
     </div>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 </html>
