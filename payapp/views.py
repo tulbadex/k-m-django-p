@@ -42,6 +42,11 @@ def make_payment(request):
                 recipient_user = User.objects.get(username=recipient_username)
                 recipient_profile = UserProfile.objects.create(user=recipient_user, balance=0)
             sender_profile = UserProfile.objects.get(user=request.user)
+
+            if sender_profile.balance < amount:
+                messages.error(request, 'Insufficient balance.')
+                return redirect('payapp:make_payment')
+            
             sender_profile.balance -= amount
             sender_profile.save()
             recipient_profile.balance += amount
