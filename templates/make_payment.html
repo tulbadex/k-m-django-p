@@ -9,6 +9,23 @@
     <h1>Make Payment</h1>
 
     <div>
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div class="alert alert-danger">
+                    <a class="close" href="#" data-dismiss="alert">×</a>
+                    {{ message }}
+                </div>
+            {% endif %}
+
+            {% if message.tags == 'success' %}
+                <div class="alert alert-success">
+                    <a class="close" href="#" data-dismiss="alert">×</a>
+                    {{ message }}
+                </div>
+            {% endif %}
+
+        {% endfor %}
+        
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
